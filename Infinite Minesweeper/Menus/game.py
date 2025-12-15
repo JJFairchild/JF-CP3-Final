@@ -19,8 +19,9 @@ class Game(Menu):
 
         self.world = World(seed, mine_prob, tiles, start_time, tilecount, mines, origin)
         self.seedbox = TextBox(300, 450, 600, 60, mutable=True, limit=25)
-        self.game_over = TextBox(25, 1105, 500, 75, False, "Enter username to save score:", (75,75,75), (200,200,200)) # Make sure this fits on screen!
-        self.userbox = TextBox(550, 1105, 300, 75, True, color=(75,75,75), text_color=(200,200,200), limit=20, size=40)
+        self.keybinds = TextBox(100,1100,1000,75, False, "Controls: LMB = reveal, MMB = flag, RMB = drag, Scroll wheel = zoom", (90, 90, 90), (230, 230, 230), size=42)
+        self.game_over = TextBox(25, 1105, 500, 75, False, "Enter username to save score:", (75,75,75), (200,200,200), size=40)
+        self.userbox = TextBox(550, 1105, 300, 75, True, color=(75,75,75), text_color=(200,200,200), limit=14)
         self.button = Button(350, 570, 500, 80, text="Generate seed for me", size=50)
         self.quit = Button(900, 1105, 280, 75, (75,75,75), "Save and exit", (200,200,200), 50)
         self.back = Button(50, 50, 100, 50, text="Back", size=50)
@@ -68,11 +69,16 @@ class Game(Menu):
         """Draws either the world or the start menu on the screen depending on which is being used."""
         if self.started:
             self.world.draw(screen, mouse, new_mouse)
-            self.quit.draw(screen)
 
             if self.world.game_over:
+                if self.userbox.text != "" and self.quit.text == "Return":
+                    self.quit.text = "Save"
+                elif self.userbox.text == "" and self.quit.text == "Save":
+                    self.quit.text = "Return"
                 self.game_over.draw(screen)
                 self.userbox.draw(screen)
+
+            self.quit.draw(screen)
 
         else:
             if self.seedbox.text == "" and self.button.text != "Generate seed for me":
@@ -84,4 +90,5 @@ class Game(Menu):
             screen.fill((60,60,60))
             self.button.draw(screen)
             self.back.draw(screen)
+            self.keybinds.draw(screen)
             self.seedbox.draw(screen)

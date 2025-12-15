@@ -7,7 +7,7 @@ class Start(Menu):
     def __init__(self):
         self.savedgame = readGame()
         self.gamesaved = bool(self.savedgame)
-        self.minesweeper = TextBox(200, 100, 800, 100, False, text="Infinite Minesweeper", size=75)
+        self.minesweeper = TextBox(200, 100, 800, 100, False, "Infinite Minesweeper", size=75)
         self.cont = Button(350, 500, 500, 80, text="Continue", size=50)
         self.newgame = Button(350, 600, 500, 80, text="New Game", size=50)
         self.leaderboard = Button(350, 700, 500, 80, text="Leaderboard", size=50)
