@@ -9,4 +9,4 @@ class Entry:
         self.time = time
         self.mines = mines
         self.difficulty = difficulty
-        self.score = tiles * ((1 / (1 - min(difficulty,0.9999))) ** 1.5)
+        self.score = (tiles-9) * ((1 / (1-min(difficulty,0.9999))) ** 1.5)
